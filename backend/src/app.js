@@ -28,15 +28,12 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 
-
-
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(rootDir, "frontend/dist")));
 	app.get("*", (req, res) => {
-	res.sendFile(path.join(rootDir, "frontend", "dist", "index.html"));
-});
+		res.sendFile(path.join(rootDir, "frontend", "dist", "index.html"));
+	});
 }
-
 
 app.use((req, res, next) => {
 	console.log("404 handler:", req.method, req.path);
