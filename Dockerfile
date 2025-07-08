@@ -15,7 +15,7 @@ COPY backend .
 # Copy frontend build into backend's expected static folder
 COPY --from=frontend /app/frontend/dist ./frontend/dist
 
-ENV PORT=5000
+# ENV PORT=5000 (removed for Render compatibility)
 EXPOSE 5000
 
 CMD ["npm", "start"]

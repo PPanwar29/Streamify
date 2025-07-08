@@ -5,6 +5,7 @@ Streamify is a modern full-stack web application for real-time chat, video calls
 ---
 
 ## Features
+
 - **User Authentication** (Sign up, Login, JWT, Cookies)
 - **Friend Requests** (Send, Accept, Reject, Remove)
 - **Real-time Chat** (with Stream API)
@@ -19,6 +20,7 @@ Streamify is a modern full-stack web application for real-time chat, video calls
 ---
 
 ## Tech Stack
+
 - **Frontend:** React, Vite, Tailwind CSS
 - **Backend:** Node.js, Express, Mongoose (MongoDB)
 - **Database:** MongoDB (Atlas or local)
@@ -30,6 +32,7 @@ Streamify is a modern full-stack web application for real-time chat, video calls
 ---
 
 ## Project Structure
+
 ```
 Streamify/
   backend/         # Express API, models, controllers, routes
@@ -45,28 +48,33 @@ Streamify/
 ## Local Development
 
 ### Prerequisites
+
 - Node.js 18+
 - npm
 - MongoDB (local or Atlas)
 
 ### 1. Clone the repo
+
 ```
 git clone https://github.com/yourusername/streamify.git
 cd streamify
 ```
 
 ### 2. Install dependencies
+
 ```
 cd backend && npm install
 cd ../frontend && npm install
 ```
 
 ### 3. Start MongoDB (if local)
+
 ```
 docker run -d -p 27017:27017 --name mongo mongo
 ```
 
 ### 4. Start the app (dev mode)
+
 - **Backend:**
   ```
   cd backend
@@ -84,13 +92,16 @@ docker run -d -p 27017:27017 --name mongo mongo
 ## Production Build & Docker
 
 ### 1. Build and Run with Docker
+
 ```
 docker build -t streamify .
 docker run -p 5000:5000 streamify
 ```
+
 - The backend will serve the frontend at [http://localhost:5000](http://localhost:5000)
 
 ### 2. Docker Compose (for local dev with MongoDB)
+
 ```
 docker-compose up --build
 ```
@@ -98,6 +109,7 @@ docker-compose up --build
 ---
 
 ## CI/CD
+
 - **GitHub Actions** runs tests and builds on every push/PR to `main`.
 - MongoDB service is provided for backend tests.
 - Frontend build step catches React build errors.
@@ -105,6 +117,7 @@ docker-compose up --build
 ---
 
 ## Deployment
+
 - **Fly.io, Render, or any Docker-compatible PaaS**
 - Use the provided Dockerfile for monolithic deployment (backend serves frontend)
 - Set environment variables (e.g., `MONGO_URL`, `PORT`, API keys) in your cloud provider
@@ -112,6 +125,7 @@ docker-compose up --build
 ---
 
 ## Environment Variables
+
 - `MONGO_URL` - MongoDB connection string
 - `PORT` - Port for backend (default: 5000)
 - `STREAM_API_KEY`, `STREAM_SECRET` - Stream API credentials
@@ -120,6 +134,7 @@ docker-compose up --build
 ---
 
 ## Testing
+
 - **Backend:**
   ```
   cd backend
@@ -134,6 +149,7 @@ docker-compose up --build
 ---
 
 ## Contributing
+
 1. Fork the repo
 2. Create a new branch (`git checkout -b feature/your-feature`)
 3. Commit your changes
@@ -142,18 +158,21 @@ docker-compose up --build
 ---
 
 ## License
+
 MIT
 
 ---
 
 ## Maintainers
+
 - [Your Name](https://github.com/yourusername)
 
 ---
 
 ## Acknowledgements
+
 - [Stream API](https://getstream.io/)
 - [Vite](https://vitejs.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-- [Fly.io](https://fly.io/) 
+- [Fly.io](https://fly.io/)
