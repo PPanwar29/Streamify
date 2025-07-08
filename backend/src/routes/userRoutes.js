@@ -9,6 +9,8 @@ const {
 	acceptFriendRequest,
 	getFriendRequests,
 	getOutgoingFriendRequests,
+	removeFriend,
+	rejectFriendRequest,
 } = require("../Controllers/userControllers");
 
 // Middleware to protect routes
@@ -23,5 +25,11 @@ router.put("/friend-request/:id/accept", acceptFriendRequest); //:id is the frie
 
 router.get("/friend-requests", getFriendRequests); // Get all friend requests for the logged-in user
 router.get("/outgoing-friend-requests", getOutgoingFriendRequests); // Get all outgoing friend requests from the logged-in user
+
+// Remove a friend
+console.log('Registering DELETE /friends/:id');
+router.delete("/friends/:id", removeFriend); // :id is the friend's user ID
+// Reject a friend request
+router.delete("/friend-request/:id/reject", rejectFriendRequest); // :id is the friend request ID
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const userModel = require("../models/userModel");
 const friendModel = require("../models/friendRequestModel");
+const mongoose = require("mongoose");
 
 const getMyFriends = async (req, res) => {
 	try {
@@ -46,12 +47,12 @@ const getRecommendedUsers = async (req, res) => {
 
 const sendFriendRequest = async (req, res) => {
 	try {
-		const userId = req.user._id; // Assuming req.user is set by the auth middleware
+		const userId = req.user._id;
 		const friendId = req.params.id;
 
 		console.log("Sending friend request:", { userId, friendId });
 
-		if (userId === friendId) {
+		if (userId.toString() === friendId.toString()) {
 			return res.status(400).json({
 				success: false,
 				message: "You cannot send a friend request to yourself",
@@ -67,20 +68,18 @@ const sendFriendRequest = async (req, res) => {
 		});
 
 		if (!friend) {
-			return res
-				.status(404)
-				.json({ success: false, message: "User not found" });
+			return res.status(404).json({ success: false, message: "User not found" });
 		}
 
-		//check if user is already friends with the friend
-		if (user.friends.includes(friendId)) {
+		// Check if user is already friends with the friend
+		if (user.friends.map(f => f.toString()).includes(friendId.toString())) {
 			return res.status(400).json({
 				success: false,
 				message: "You are already friends with this user",
 			});
 		}
 
-		// Check if the friend request already exists
+		// Check if a friend request already exists
 		const existingRequest = await friendModel.findOne({
 			$or: [
 				{ sender: userId, recipient: friendId },
@@ -94,9 +93,20 @@ const sendFriendRequest = async (req, res) => {
 		});
 
 		if (existingRequest) {
-			return res
-				.status(400)
-				.json({ success: false, message: "Friend request already exists" });
+			// If the request is pending, block
+			if (existingRequest.status === "pending") {
+				return res.status(400).json({ success: false, message: "Friend request already exists" });
+			}
+			// If the request is accepted, but users are not friends, allow new request and delete the old one
+			if (existingRequest.status === "accepted") {
+				const userIsFriend = user.friends.map(f => f.toString()).includes(friendId.toString());
+				const friendIsFriend = friend.friends.map(f => f.toString()).includes(userId.toString());
+				if (!userIsFriend && !friendIsFriend) {
+					await friendModel.findByIdAndDelete(existingRequest._id);
+				} else {
+					return res.status(400).json({ success: false, message: "You are already friends with this user" });
+				}
+			}
 		}
 
 		// Add the friend to the user's friend requests
@@ -216,6 +226,51 @@ const getOutgoingFriendRequests = async (req, res) => {
 	}
 };
 
+// Remove a friend (unfriend)
+const removeFriend = async (req, res) => {
+	try {
+		const userId = req.user._id;
+		const friendId = req.params.id;
+		console.log('Remove friend called with:', { userId, friendId });
+		if (!mongoose.Types.ObjectId.isValid(friendId)) {
+			return res.status(400).json({ success: false, message: 'Invalid friend ID' });
+		}
+		// Always use string for $pull to match how ObjectIds are stored in friends array
+		const userIdStr = userId.toString();
+		const friendIdStr = friendId.toString();
+		await userModel.findByIdAndUpdate(userId, { $pull: { friends: friendIdStr } });
+		await userModel.findByIdAndUpdate(friendId, { $pull: { friends: userIdStr } });
+		res.status(200).json({ success: true, message: 'Friend removed' });
+	} catch (error) {
+		console.error('Error removing friend:', error);
+		res.status(500).json({ success: false, message: error.message, stack: error.stack });
+	}
+};
+
+// Reject a friend request
+const rejectFriendRequest = async (req, res) => {
+	try {
+		const userId = req.user._id;
+		const requestId = req.params.id;
+		const friendRequest = await friendModel.findById(requestId);
+		if (!friendRequest) {
+			return res.status(404).json({ success: false, message: 'Friend request not found' });
+		}
+		// Only recipient can reject
+		if (friendRequest.recipient.toString() !== userId.toString()) {
+			return res.status(403).json({ success: false, message: 'Not authorized to reject this request' });
+		}
+		// Remove each other from friends list if present (symmetry with accept logic)
+		await userModel.findByIdAndUpdate(userId, { $pull: { friends: friendRequest.sender } });
+		await userModel.findByIdAndUpdate(friendRequest.sender, { $pull: { friends: userId } });
+		await friendModel.findByIdAndDelete(requestId);
+		res.status(200).json({ success: true, message: 'Friend request rejected and users unfriended if needed' });
+	} catch (error) {
+		console.error('Error rejecting friend request:', error);
+		res.status(500).json({ success: false, message: 'Internal server error' });
+	}
+};
+
 module.exports = {
 	getMyFriends,
 	getRecommendedUsers,
@@ -223,4 +278,6 @@ module.exports = {
 	acceptFriendRequest,
 	getFriendRequests,
 	getOutgoingFriendRequests,
+	removeFriend,
+	rejectFriendRequest,
 };

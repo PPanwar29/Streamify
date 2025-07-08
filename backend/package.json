@@ -1,27 +1,34 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "main": "src/app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/app.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "bcryptjs": "^3.0.2",
-    "cookie-parser": "^1.4.7",
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^4.21.0",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.13.2",
-    "stream-chat": "^8.60.0",
-    "streamify": "file:.."
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.9"
-  }
+	"name": "backend",
+	"version": "1.0.0",
+	"main": "src/app.js",
+	"scripts": {
+		"start": "node src/server.js",
+		"test": "jest",
+		"lint": "eslint src --ext .js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"@sentry/node": "^9.35.0",
+		"bcryptjs": "^3.0.2",
+		"cookie-parser": "^1.4.7",
+		"cors": "^2.8.5",
+		"dotenv": "^16.5.0",
+		"express": "^4.21.0",
+		"jsonwebtoken": "^9.0.2",
+		"mongoose": "^8.13.2",
+		"stream-chat": "^8.60.0",
+		"streamify": "file:.."
+	},
+	"devDependencies": {
+		"eslint": "^9.30.1",
+		"eslint-plugin-react": "^7.37.5",
+		"globals": "^16.3.0",
+		"jest": "^30.0.4",
+		"nodemon": "^3.1.9",
+		"supertest": "^7.1.3"
+	}
 }

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { acceptFriendRequest, getFriendRequests } from "../lib/api";
+import { acceptFriendRequest, getFriendRequests, rejectFriendRequest } from "../lib/api";
 import {
 	BellIcon,
 	ClockIcon,
@@ -21,6 +21,13 @@ const NotificationPage = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["friendRequests"] });
 			queryClient.invalidateQueries({ queryKey: ["friends"] });
+		},
+	});
+
+	const { mutate: rejectRequestMutation, isPending: isRejecting } = useMutation({
+		mutationFn: rejectFriendRequest,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["friendRequests"] });
 		},
 	});
 
@@ -86,13 +93,22 @@ const NotificationPage = () => {
 														</div>
 													</div>
 
-													<button
-														className="btn btn-primary btn-sm"
-														onClick={() => acceptRequestMutation(request._id)}
-														disabled={isPending}
-													>
-														Accept
-													</button>
+													<div className="flex items-center gap-2">
+														<button
+															className="btn btn-primary btn-sm"
+															onClick={() => acceptRequestMutation(request._id)}
+															disabled={isPending}
+														>
+															Accept
+														</button>
+														<button
+															className="btn btn-error btn-sm ml-2"
+															onClick={() => rejectRequestMutation(request._id)}
+															disabled={isRejecting}
+														>
+															{isRejecting ? "Rejecting..." : "Reject"}
+														</button>
+													</div>
 												</div>
 											</div>
 										</div>

@@ -1,0 +1,21 @@
+# Build frontend
+FROM node:18 as frontend
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend .
+RUN npm run build
+
+# Build backend
+FROM node:18 as backend
+WORKDIR /app
+COPY backend/package*.json ./
+RUN npm install
+COPY backend .
+# Copy frontend build into backend's expected static folder
+COPY --from=frontend /app/frontend/dist ./frontend/dist
+
+ENV PORT=5000
+EXPOSE 5000
+
+CMD ["npm", "start"]
