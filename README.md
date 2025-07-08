@@ -2,6 +2,10 @@
 
 Streamify is a modern full-stack web application for real-time chat, video calls, and language learning. It features authentication, friend management, notifications, and a beautiful, responsive UI.
 
+![image](https://github.com/user-attachments/assets/060c9404-896b-40d4-9728-6ed2c41e78ac)
+![image](https://github.com/user-attachments/assets/a438b65e-6c04-4568-88b2-c1e18390b9a0)
+
+
 ---
 
 ## Features
@@ -164,8 +168,12 @@ MIT
 ---
 
 ## Maintainers
+<<<<<<< HEAD
 
 - [Your Name](https://github.com/yourusername)
+=======
+- [Prashant Singh Panwar](https://github.com/PPanwar29)
+>>>>>>> 235831c0b200e40cee70bcef42e8977d8cc5d19b
 
 ---
 
@@ -175,4 +183,8 @@ MIT
 - [Vite](https://vitejs.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+<<<<<<< HEAD
 - [Fly.io](https://fly.io/)
+=======
+- [Fly.io](https://fly.io/) 
+>>>>>>> 235831c0b200e40cee70bcef42e8977d8cc5d19b
