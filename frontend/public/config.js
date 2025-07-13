@@ -1,0 +1,3 @@
+window.ENV_CONFIG = {
+	VITE_STREAM_API_KEY: "__VITE_STREAM_API_KEY__",
+};

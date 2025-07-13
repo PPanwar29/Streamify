@@ -36,6 +36,16 @@ app.use("/api/chat", chatRoutes);
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(rootDir, "frontend/dist")));
+
+	// Serve runtime config with environment variables
+	app.get("/config.js", (req, res) => {
+		const config = `window.ENV_CONFIG = {
+			VITE_STREAM_API_KEY: '${process.env.STEAM_API_KEY}'
+		};`;
+		res.setHeader("Content-Type", "application/javascript");
+		res.send(config);
+	});
+
 	app.get("*", (req, res) => {
 		res.sendFile(path.join(rootDir, "frontend", "dist", "index.html"));
 	});

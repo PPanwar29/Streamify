@@ -4,6 +4,8 @@ WORKDIR /app/frontend
 COPY frontend/package*.json ./
 RUN npm install
 COPY frontend .
+ARG VITE_STREAM_API_KEY
+ENV VITE_STREAM_API_KEY=$VITE_STREAM_API_KEY
 RUN npm run build
 
 # Build backend

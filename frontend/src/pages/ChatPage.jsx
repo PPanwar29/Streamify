@@ -18,8 +18,9 @@ import toast from "react-hot-toast";
 
 import ChatLoader from "../components/ChatLoader";
 import CallButton from "../components/CallButton";
+import { STREAM_API_KEY } from "../lib/env";
 
-const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
+console.log("Frontend STREAM_API_KEY:", STREAM_API_KEY);
 
 const ChatPage = () => {
 	const { id: targetUserId } = useParams();
@@ -30,11 +31,14 @@ const ChatPage = () => {
 
 	const { authUser } = useAuthUser();
 
-	const { data: tokenData } = useQuery({
+	const { data: tokenData, error: tokenError } = useQuery({
 		queryKey: ["streamToken"],
 		queryFn: getStreamToken,
 		enabled: !!authUser, // this will run only when authUser is available
 	});
+
+	console.log("Token data:", tokenData);
+	console.log("Token error:", tokenError);
 
 	useEffect(() => {
 		const initChat = async () => {

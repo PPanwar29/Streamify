@@ -6,6 +6,9 @@ dotenv.config();
 const apiKey = process.env.STEAM_API_KEY;
 const apiSecret = process.env.STEAM_API_SECRET;
 
+console.log("Backend STEAM_API_KEY exists:", !!apiKey);
+console.log("Backend STEAM_API_SECRET exists:", !!apiSecret);
+
 if (!apiKey || !apiSecret) {
 	throw new Error("STEAM_API_KEY and STEAM_API_SECRET are missing");
 }
