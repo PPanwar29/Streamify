@@ -29,7 +29,7 @@ const ChatPage = () => {
 
 	const { authUser } = useAuthUser();
 
-	const { data: tokenData, error: tokenError } = useQuery({
+	const { data: tokenData } = useQuery({
 		queryKey: ["streamToken"],
 		queryFn: getStreamToken,
 		enabled: !!authUser, // this will run only when authUser is available
