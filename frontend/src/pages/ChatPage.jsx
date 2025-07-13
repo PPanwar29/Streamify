@@ -20,8 +20,6 @@ import ChatLoader from "../components/ChatLoader";
 import CallButton from "../components/CallButton";
 import { STREAM_API_KEY } from "../lib/env";
 
-console.log("Frontend STREAM_API_KEY:", STREAM_API_KEY);
-
 const ChatPage = () => {
 	const { id: targetUserId } = useParams();
 
@@ -37,16 +35,11 @@ const ChatPage = () => {
 		enabled: !!authUser, // this will run only when authUser is available
 	});
 
-	console.log("Token data:", tokenData);
-	console.log("Token error:", tokenError);
-
 	useEffect(() => {
 		const initChat = async () => {
 			if (!tokenData?.token || !authUser) return;
 
 			try {
-				console.log("Initializing stream chat client...");
-
 				const client = StreamChat.getInstance(STREAM_API_KEY);
 
 				await client.connectUser(
