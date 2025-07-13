@@ -159,21 +159,12 @@ docker-compose up --build
 3. Commit your changes
 4. Push to your fork and open a Pull Request
 
----
-
-## License
-
-MIT
 
 ---
 
 ## Maintainers
-<<<<<<< HEAD
 
-- [Your Name](https://github.com/yourusername)
-=======
 - [Prashant Singh Panwar](https://github.com/PPanwar29)
->>>>>>> 235831c0b200e40cee70bcef42e8977d8cc5d19b
 
 ---
 
@@ -183,8 +174,4 @@ MIT
 - [Vite](https://vitejs.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-<<<<<<< HEAD
-- [Fly.io](https://fly.io/)
-=======
-- [Fly.io](https://fly.io/) 
->>>>>>> 235831c0b200e40cee70bcef42e8977d8cc5d19b
+
