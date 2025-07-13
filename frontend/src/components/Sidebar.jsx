@@ -21,7 +21,7 @@ const Sidebar = () => {
 			<nav className="flex-1 p-4 space-y-1">
 				<Link
 					to="/"
-					className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case ${
+					className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case transition-all duration-200 hover:scale-105 ${
 						currentPath === "/" ? "btn-active" : ""
 					}`}
 				>
@@ -31,7 +31,7 @@ const Sidebar = () => {
 
 				<Link
 					to="/friends"
-					className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case ${
+					className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case transition-all duration-200 hover:scale-105 ${
 						currentPath === "/friends" ? "btn-active" : ""
 					}`}
 				>
@@ -41,7 +41,7 @@ const Sidebar = () => {
 
 				<Link
 					to="/notifications"
-					className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case ${
+					className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case transition-all duration-200 hover:scale-105 ${
 						currentPath === "/notifications" ? "btn-active" : ""
 					}`}
 				>

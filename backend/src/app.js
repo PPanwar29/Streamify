@@ -11,7 +11,10 @@ const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 
 const app = express();
-const rootDir = path.resolve(__dirname, "..", ".."); // Go up two levels to reach project root
+const rootDir =
+	process.env.NODE_ENV === "production"
+		? path.resolve(__dirname, "..") // In production (Docker), go up one level to /app
+		: path.resolve(__dirname, "..", ".."); // In development, go up two levels to project root
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

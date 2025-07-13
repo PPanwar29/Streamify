@@ -1,11 +1,11 @@
-version: '3.8'
+version: "3.8"
 
 services:
   mongo:
     image: mongo
     container_name: mongo
     ports:
-      - '27017:27017'
+      - "27017:27017"
     volumes:
       - mongo-data:/data/db
 
@@ -15,7 +15,7 @@ services:
       dockerfile: Dockerfile
     container_name: streamify-app
     ports:
-      - '5000:5000'
+      - "5000:5000"
     depends_on:
       - mongo
     environment:
