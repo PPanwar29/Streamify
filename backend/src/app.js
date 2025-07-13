@@ -11,7 +11,7 @@ const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 
 const app = express();
-const rootDir = path.resolve();
+const rootDir = path.resolve(__dirname, "..", ".."); // Go up two levels to reach project root
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -19,7 +19,10 @@ app.use(cookieParser());
 
 app.use(
 	cors({
-		origin: "http://localhost:5173",
+		origin:
+			process.env.NODE_ENV === "production"
+				? true // Allow all origins in production (since frontend is served from same domain)
+				: "http://localhost:5173", // Only localhost in development
 		credentials: true,
 	}),
 );

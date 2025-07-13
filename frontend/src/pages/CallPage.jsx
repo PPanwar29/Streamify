@@ -44,7 +44,7 @@ const CallPage = () => {
 
 				const user = {
 					id: authUser._id,
-					name: authUser.fullName,
+					name: authUser.fullname,
 					image: authUser.profilePic,
 				};
 
@@ -71,6 +71,13 @@ const CallPage = () => {
 		};
 
 		initCall();
+
+		// Cleanup function to disconnect client when component unmounts
+		return () => {
+			if (client) {
+				client.disconnectUser();
+			}
+		};
 	}, [tokenData, authUser, callId]);
 
 	if (isLoading || isConnecting) return <PageLoader />;

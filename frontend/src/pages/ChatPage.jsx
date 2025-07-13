@@ -73,6 +73,13 @@ const ChatPage = () => {
 		};
 
 		initChat();
+
+		// Cleanup function to disconnect client when component unmounts
+		return () => {
+			if (chatClient) {
+				chatClient.disconnectUser();
+			}
+		};
 	}, [tokenData, authUser, targetUserId]);
 
 	const handleVideoCall = () => {
